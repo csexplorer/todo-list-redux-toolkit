@@ -12,6 +12,22 @@ export function fetchList() {
 }
 
 
+export function create(values) {
+  const token = localStorage.getItem('token');
+
+  return axios.post(`https://task.samid.uz/v1/task`, {
+    title: values.title,
+    description: values.description,
+    number: Number(values.number),
+    status: values.status
+  },{
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+}
+
+
 export function remove(id) {
   const token = localStorage.getItem('token');
 

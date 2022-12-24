@@ -1,13 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {fetchListAsync, removeAsync} from "./todoSlice";
-import {Space, Table} from "antd";
+import {Button, Space, Table} from "antd";
+import CreateForm from "./Create";
 
 
 export function Todo() {
   const state = useSelector(state => state.todo);
   console.log('state  ', state)
   const dispatch = useDispatch();
+
+  const [create, setCreate] = useState(false);
+
 
   useEffect(() => {
     dispatch(fetchListAsync())
@@ -46,7 +50,14 @@ export function Todo() {
 
   return (
     <div className="Todo">
-      <Table loading={state.status === 'loading'} columns={columns} dataSource={state.list} />
+      <div className="TodoHeader">
+        <Button onClick={() => setCreate(true)}>Create</Button>
+      </div>
+      <div className="TodoContent">
+        <Table loading={state.status === 'loading'} columns={columns} dataSource={state.list} />
+      </div>
+
+      <CreateForm isOpen={create} onClose={() => setCreate(false)} />
     </div>
   );
 }

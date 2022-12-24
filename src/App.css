@@ -24,3 +24,14 @@
 .Todo {
     width: 100%;
 }
+
+.TodoHeader {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 16px;
+}
+
+.TodoContent {
+    padding: 0 16px;
+}

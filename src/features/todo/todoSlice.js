@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import {fetchList, remove} from './todoAPI';
+import {create, fetchList, remove} from './todoAPI';
 
 const initialState = {
   list: [],
@@ -14,6 +14,16 @@ export const fetchListAsync = createAsyncThunk(
 );
 
 
+export const createAsync = createAsyncThunk(
+    'todo/create',
+    async (values) => {
+        const {data} = await create(values);
+
+        return data.data;
+    }
+);
+
+
 export const removeAsync = createAsyncThunk(
     'todo/remove',
     async (id) => {
@@ -24,7 +34,7 @@ export const removeAsync = createAsyncThunk(
 );
 
 export const todoSlice = createSlice({
-  name: 'counter',
+  name: 'todo',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -38,6 +48,14 @@ export const todoSlice = createSlice({
         state.status = 'idle';
       });
 
+      builder
+          .addCase(createAsync.pending, (state) => {
+              state.status = 'loading';
+          })
+          .addCase(createAsync.fulfilled, (state, action) => {
+              state.status = 'idle';
+          });
+
     builder.addCase(removeAsync.pending, (state) => {
       state.status = 'loading';
     })
@@ -46,6 +64,8 @@ export const todoSlice = createSlice({
             const {id} = action.payload;
 
             state.list = state.list.filter(item => item.id !== id);
+
+
           state.status = 'idle';
         });
   },
