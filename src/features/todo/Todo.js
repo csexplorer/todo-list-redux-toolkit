@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {fetchListAsync} from "./todoSlice";
+import {fetchListAsync, removeAsync} from "./todoSlice";
 import {Space, Table} from "antd";
 
 
@@ -35,7 +35,9 @@ export function Todo() {
       key: 'action',
       render: (_, record) => (
           <Space size="middle">
-            <a>Delete</a>
+            <a onClick={() => {
+              dispatch(removeAsync(record.id))
+            }}>Delete</a>
           </Space>
       ),
     },
@@ -44,7 +46,7 @@ export function Todo() {
 
   return (
     <div className="Todo">
-      <Table columns={columns} dataSource={state.list} />
+      <Table loading={state.status === 'loading'} columns={columns} dataSource={state.list} />
     </div>
   );
 }
