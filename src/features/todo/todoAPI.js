@@ -3,7 +3,7 @@ import axios from "axios";
 
 export function fetchList(amount = 1) {
   const token = localStorage.getItem('token')
-  return axios.get('https://task.samid.uz/v1/tasks/list', {
+  return axios.get('https://task.samid.uz/v1/task', {
     headers: {
       Authorization: `Bearer ${token}`
     }

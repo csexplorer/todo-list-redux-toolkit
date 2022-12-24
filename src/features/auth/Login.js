@@ -5,7 +5,7 @@ import {
 } from './authSlice';
 import { Button, Form, Input } from 'antd';
 
-export function Auth() {
+export function Login() {
   const dispatch = useDispatch();
     const onFinish = (values) => {
         dispatch(loginAsync({username: values.username, password: values.password}))
@@ -15,16 +15,10 @@ export function Auth() {
     };
 
   return (
-    <div>
-        <Form name="basic"
-            labelCol={{
-                span: 8,
-            }}
-            wrapperCol={{
-                span: 16,
-            }}
+    <div className="Login">
+        <Form layout="vertical" name="basic"
             initialValues={{
-                remember: true,
+
             }}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
@@ -56,12 +50,7 @@ export function Auth() {
                 <Input.Password />
             </Form.Item>
 
-            <Form.Item
-                wrapperCol={{
-                    offset: 8,
-                    span: 16,
-                }}
-            >
+            <Form.Item>
                 <Button type="primary" htmlType="submit">
                     Submit
                 </Button>

@@ -35,9 +35,8 @@ export const todoSlice = createSlice({
       })
       .addCase(fetchListAsync.fulfilled, (state, action) => {
         const {payload}  = action;
-        debugger;
+        state.list = payload;
         state.status = 'idle';
-
       });
   },
 });
